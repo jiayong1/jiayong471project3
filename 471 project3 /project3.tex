@@ -1,0 +1,61 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+
+\title{471 Project 3}
+\author{Jiayong Lin}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The purpose of this document is to describe the approach, accuracy and further improvement of my image recognition project.
+\end{abstract}
+
+\section{Introduction}
+
+This project is implemented by python to achieve the image recognition. It uses the idea with Scipy. User can input a filepath to a jpg, and the program can tell if the image is Smile, Hat, Hash, Dollar or Heart. 
+
+\section{Approach}
+	The program uses the idea with Scipy. Firstly, the program have a training set data wich contains different number of images of differnet figure. The program will decide the figure of test image based on those training data. \\
+	All the training set image and test image will convert to a Scipy RGB array by "imread()". Althouth the image is black and white, all the black pixels have different RGB value because of the different density. Therefore, we convert the array to grey scale. finally, it return a array of (each value - mean)/ (standard deviation). After covert all the image to (50px * 50px), the test image will compare to each training image. and it will return a value that represent the similarity of two images. the maximum of the value will be the number of the pixel. Add all values of a same kind of figure together and devide by the number of the images. It is the final score of the similarity. Finally the highest score figure will be the result.
+\subsubsection{Simple Code}
+    here is the code for converting image to grey scale array:\\
+    data = imread(i)\\
+    data = sp.inner(data, [299, 587, 114]) / 1000.0\\
+    return (data - data.mean()) / data.std()\\
+    \newpage
+
+
+\section{Accuracy}
+	After the implementation, I test my program with 40 images. Because the training set has 408 images, the number of test set should be around 10 percent of the training set. I saved 5 percent of learing set to be the test set. 20 of the test images is from the folder that professor provided, and 20 images are newly created by me. the testing set are equally distributed in Simle, Hat, Hash, Dollar and Heart.  
+\newline
+\begin{center}
+  \begin{tabular}{ l | c | r }
+    \hline
+    Test Image & Correct number  & Accuracy \\ \hline
+    From Training set & 20 & 1 \\ \hline
+    Newly Created & 17 & 0.85 \\
+    \hline
+  \end{tabular}
+\end{center}
+	IMPORTANT: The accurcy of newly created is lower because my drawing is not clear enough. \\
+	The final accuracy is 0.925, and the running time is around 8 seconds. My last version without converting the image to 50 * 50, the running time is much more longer, whihc is around 1 minute. After converting, the running time becomes shorter and the accuracy still very high. 
+
+\section{Further Improvement}
+	The running time is still very high if we have a larger training set. In addition, this algorithm is based on comparing each pixel. It is not very smart. For further improvement, we can find the hidden pattern in every figure. and use this pattern to decide the test image.  
+    
+\section{Conclusion}
+	Overall, this image recognition project have very high accurcy. It is also nicely organized and implemented.  
+
+\end{document}
+
+
+
+
+
+
